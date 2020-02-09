@@ -1,37 +1,38 @@
 import mexp from 'math-expression-evaluator';
 
+let variables = {};
+
 export default class Processor {
   constructor() {}
 
-  static parseEditor(text, variables) {
+  static parseEditor(text) {
+    variables = {};
+
     return text.split('\n').map(line => {
-      return Processor.parseLine(line, variables);
-    });
+      return Processor.parseLine(line);
+    }).join('\n');
   }
 
-  static parseLine(line, variables) {
+  static parseLine(line) {
     const parts = line.split('=').map(p => p.trim());
 
     if(parts.length === 2) {
-      return {
-        number: `${Processor.calcExp(parts[1], variables)}`,
-        variable: parts[0]
-      }
+      const result = `${Processor.calcExp(parts[1])}`;
+      variables[parts[0]] = result;
+
+      return result;
     } else if(parts.length === 1) {
       try {
-        return {
-          number: `${Processor.calcExp(line, variables)}`,
-          variable: null
-        }
+        return `${Processor.calcExp(line)}`;
       } catch(ex) {
         return `Unknown`;
       }
     } else {
-      throw new Error('bad line');
+      throw new Error('Bad Line');
     }
   }
 
-  static calcExp(exp, variables) {
+  static calcExp(exp) {
     Object.keys(variables).forEach(v => {
       exp = exp.replace(v, variables[v]);
     });

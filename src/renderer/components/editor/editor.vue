@@ -3,12 +3,12 @@
     <main>
       <div class="container">
         <div class="left">
-          <textarea id="editor">
-          </textarea>
+          <div id="editor">
+          </div>
         </div>
         <div class="right">
-          <textarea id="output">
-          </textarea>
+          <div id="output">
+          </div>
         </div>
       </div>
     </main>
@@ -16,7 +16,12 @@
 </template>
 
 <script>
-  import CodeMirror from 'codemirror';
+  import CodeMirror from 'codemirror/lib/codemirror.js';
+  import 'codemirror/theme/material';
+  import 'codemirror/theme/darcula';
+  import 'codemirror/theme/3024-night';
+  import 'codemirror/lib/codemirror.css';
+  import js from 'codemirror/mode/javascript/javascript';
   import Processor from '../../processor/processor';
 
   let editorModel = {
@@ -39,37 +44,31 @@
     name: 'editor',
     methods: {
       update() {
-        this.result = Processor.parseEditor(this.editorModel.text, this.variables).map(part => {
-          if(part.variable) {
-            this.variables[part.variable] = part.number;
-          }
-
-          return part.number;
-        }).join('\n');
+        this.result = Processor.parseEditor(this.editorModel.text);
         this.output.getDoc().setValue(this.result);
-        console.log(this.variables);
       }
     },
-    created() {
-      setTimeout(() => {
-        this.output = CodeMirror.fromTextArea(document.getElementById('output'), {
-          lineNumbers: true,
-          readOnly: true
-        });
+    mounted() {
+      this.output = CodeMirror(document.getElementById('output'), {
+        lineNumbers: false,
+        readOnly: true,
+        theme: 'material'
+      });
 
-        this.editor = CodeMirror.fromTextArea(document.getElementById('editor'), {
-          lineNumbers: true
-        });
+      this.editor = CodeMirror(document.getElementById('editor'), {
+        mode: 'javascript',
+        lineWrapping: true,
+        theme: '3024-night',
+        lineNumbers: true
+      });
 
-        this.editor.on('change', cm => {
-          this.editorModel.text = cm.getValue();
-          this.update();
-        });
+      this.editor.on('change', cm => {
+        this.editorModel.text = cm.getValue();
+        this.update();
       });
     },
     data() {
       return {
-        variables: {},
         result: null,
         expression: '1',
         editorModel: editorModel,
@@ -85,28 +84,31 @@
 </script>
 
 <style>
-  * {
-    font-family: 'Courier New', Courier, monospace;
-    font-size: 14px;
+  html {
+    zoom: 150%;
   }
 
   html, body {
     padding: 0px;
     margin: 0px;
   }
-  html, body, #app, #wrapper, main, .container, .CodeMirror {
+  html, body, #app, #wrapper, #editor, #output, main, .container, .CodeMirror {
     height: 100%;
+    max-height: 100%;
+    overflow-y: scroll;
   }
 
   .container {
     display: flex;
   }
 
-  .container .left, .container .right {
+  .container .left {
     flex: 1 1 auto;
+    width: 60%
   }
 
-  .right .CodeMirror {
-    background-color: #efefef;
+  .container .right {
+    flex: 0 1 auto;
+    width: 40%;
   }
 </style>
