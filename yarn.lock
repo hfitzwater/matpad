@@ -2249,6 +2249,10 @@ code-point-at@^1.0.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/code-point-at/-/code-point-at-1.1.0.tgz#0d070b4d043a5bea33a2f1a40e2edb3d9a4ccf77"
 
+codemirror@^5.51.0:
+  version "5.51.0"
+  resolved "https://registry.yarnpkg.com/codemirror/-/codemirror-5.51.0.tgz#7746caaf5223e68f5c55ea11e2f3cc82a9a3929e"
+
 collection-visit@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/collection-visit/-/collection-visit-1.0.0.tgz#4bc0373c164bc3291b4d368c829cf1a80a59dca0"
@@ -7479,15 +7483,9 @@ prosemirror-tables@1.0.0:
     prosemirror-transform "^1.2.1"
     prosemirror-view "^1.13.3"
 
-prosemirror-transform@1.2.2:
+prosemirror-transform@1.2.2, prosemirror-transform@^1.0.0, prosemirror-transform@^1.1.0, prosemirror-transform@^1.2.1:
   version "1.2.2"
   resolved "https://registry.yarnpkg.com/prosemirror-transform/-/prosemirror-transform-1.2.2.tgz#4439ae7e88ea1395d9beed6a4cd852d72b16ed2f"
-  dependencies:
-    prosemirror-model "^1.0.0"
-
-prosemirror-transform@^1.0.0, prosemirror-transform@^1.1.0, prosemirror-transform@^1.2.1:
-  version "1.2.3"
-  resolved "https://registry.yarnpkg.com/prosemirror-transform/-/prosemirror-transform-1.2.3.tgz#239d17591af24d39ef3f1999daa09e1f1c76b06a"
   dependencies:
     prosemirror-model "^1.0.0"
 

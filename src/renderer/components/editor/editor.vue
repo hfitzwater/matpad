@@ -2,18 +2,13 @@
   <div id="wrapper">
     <main>
       <div class="container">
-        <div class="split-left">
-          <input type="text" v-model="expression" @change="calculate()" @keyup="calculate()">
-          <button @click="calculate()">
-            Calculate
-          </button>
-          <div class="editor">
-            <editor-content class="editor__content" :editor="editor" />
-          </div>
+        <div class="left">
+          <textarea id="editor">
+          </textarea>
         </div>
-        <div class="split-right">
-          Expression: {{ expression }}
-          Result: {{ result }}
+        <div class="right">
+          <textarea id="output">
+          </textarea>
         </div>
       </div>
     </main>
@@ -21,43 +16,66 @@
 </template>
 
 <script>
-  import mexp from 'math-expression-evaluator';
-  import { Editor, EditorContent } from 'tiptap';
-  import { CodeBlockHighlight } from 'tiptap-extensions';
+  import CodeMirror from 'codemirror';
+  import Processor from '../../processor/processor';
+
+  let editorModel = {
+    text: '',
+    stats: {
+      words: 0,
+      chars: 0
+    }
+  };
+
+  let outputModel = {
+    text: '',
+    stats: {
+      words: 0,
+      chars: 0
+    }
+  };
 
   export default {
     name: 'editor',
-    components: {
-      EditorContent
-    },
     methods: {
-      open (link) {
-        this.$electron.shell.openExternal(link)
-      },
-      calculate(exp) {
-        try {
-          this.result = mexp.eval(this.expression);
-        } catch(ex) {
-          console.warn(ex);
-        }
+      update() {
+        this.result = Processor.parseEditor(this.editorModel.text, this.variables).map(part => {
+          if(part.variable) {
+            this.variables[part.variable] = part.number;
+          }
+
+          return part.number;
+        }).join('\n');
+        this.output.getDoc().setValue(this.result);
+        console.log(this.variables);
       }
+    },
+    created() {
+      setTimeout(() => {
+        this.output = CodeMirror.fromTextArea(document.getElementById('output'), {
+          lineNumbers: true,
+          readOnly: true
+        });
+
+        this.editor = CodeMirror.fromTextArea(document.getElementById('editor'), {
+          lineNumbers: true
+        });
+
+        this.editor.on('change', cm => {
+          this.editorModel.text = cm.getValue();
+          this.update();
+        });
+      });
     },
     data() {
       return {
+        variables: {},
         result: null,
         expression: '1',
-        editor: new Editor({
-          extensions: [
-            new CodeBlockHighlight({
-              languages: {}
-            }),
-          ],
-          content: `
-            <p> Enter some things </p>
-            <pre><code>function() {}</code></pre>
-            <p> End of stuff </p>
-          `
-        })
+        editorModel: editorModel,
+        outputModel: outputModel,
+        editor: null,
+        output: null
       }
     },
     beforeDestroy() {
@@ -67,11 +85,28 @@
 </script>
 
 <style>
-  /* .ProseMirror [contenteditable="false"] {
-    white-space: normal;
+  * {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 14px;
   }
 
-  .ProseMirror [contenteditable="true"] {
-    white-space: pre-wrap;
-  } */
+  html, body {
+    padding: 0px;
+    margin: 0px;
+  }
+  html, body, #app, #wrapper, main, .container, .CodeMirror {
+    height: 100%;
+  }
+
+  .container {
+    display: flex;
+  }
+
+  .container .left, .container .right {
+    flex: 1 1 auto;
+  }
+
+  .right .CodeMirror {
+    background-color: #efefef;
+  }
 </style>

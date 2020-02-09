@@ -56,6 +56,7 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
+    "codemirror": "^5.51.0",
     "math-expression-evaluator": "^1.2.22",
     "tiptap": "^1.26.6",
     "tiptap-extensions": "^1.28.6",
