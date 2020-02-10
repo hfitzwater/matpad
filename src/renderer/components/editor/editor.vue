@@ -44,8 +44,8 @@
     name: 'editor',
     methods: {
       update() {
-        this.result = Processor.parseEditor(this.editorModel.text);
-        this.output.getDoc().setValue(this.result);
+        const result = Processor.parseEditor(this.editorModel.text);
+        this.output.getDoc().setValue(result);
       }
     },
     mounted() {
@@ -69,8 +69,6 @@
     },
     data() {
       return {
-        result: null,
-        expression: '1',
         editorModel: editorModel,
         outputModel: outputModel,
         editor: null,
@@ -84,10 +82,6 @@
 </script>
 
 <style>
-  html {
-    zoom: 150%;
-  }
-
   html, body {
     padding: 0px;
     margin: 0px;
