@@ -20,8 +20,15 @@
   import 'codemirror/theme/material';
   import 'codemirror/theme/darcula';
   import 'codemirror/theme/3024-night';
-  import 'codemirror/lib/codemirror.css';
+  import 'codemirror/addon/search/search';
+  import 'codemirror/addon/search/searchcursor';
+  import 'codemirror/addon/search/jump-to-line';
+  import 'codemirror/addon/dialog/dialog';
   import js from 'codemirror/mode/javascript/javascript';
+
+  import 'codemirror/lib/codemirror.css';
+  import 'codemirror/addon/dialog/dialog.css';
+
   import Processor from '../../processor/processor';
 
   let editorModel = {
@@ -46,26 +53,31 @@
       update() {
         const result = Processor.parseEditor(this.editorModel.text);
         this.output.getDoc().setValue(result);
+      },
+      initOuputEditor() {
+        this.output = CodeMirror(document.getElementById('output'), {
+          lineNumbers: false,
+          readOnly: true,
+          theme: 'material'
+        });
+      },
+      initMainEditor() {
+        this.editor = CodeMirror(document.getElementById('editor'), {
+          mode: 'javascript',
+          lineWrapping: true,
+          theme: '3024-night',
+          lineNumbers: true
+        });
+
+        this.editor.on('change', cm => {
+          this.editorModel.text = cm.getValue();
+          this.update();
+        });
       }
     },
     mounted() {
-      this.output = CodeMirror(document.getElementById('output'), {
-        lineNumbers: false,
-        readOnly: true,
-        theme: 'material'
-      });
-
-      this.editor = CodeMirror(document.getElementById('editor'), {
-        mode: 'javascript',
-        lineWrapping: true,
-        theme: '3024-night',
-        lineNumbers: true
-      });
-
-      this.editor.on('change', cm => {
-        this.editorModel.text = cm.getValue();
-        this.update();
-      });
+      this.initMainEditor();
+      this.initOuputEditor();
     },
     data() {
       return {

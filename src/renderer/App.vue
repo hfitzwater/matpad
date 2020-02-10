@@ -6,7 +6,8 @@
 
 <script>
   export default {
-    name: 'matpad'
+    name: 'matpad',
+    methods: {}
   }
 </script>
 
