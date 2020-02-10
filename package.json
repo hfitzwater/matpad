@@ -58,6 +58,7 @@
     "axios": "^0.18.0",
     "codemirror": "^5.51.0",
     "math-expression-evaluator": "^1.2.22",
+    "mousetrap": "^1.6.5",
     "vue": "^2.5.16",
     "vue-electron": "^1.0.6",
     "vue-router": "^3.0.1",

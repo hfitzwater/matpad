@@ -69,6 +69,15 @@
           lineNumbers: true
         });
 
+        this.editor.setOption("extraKeys", {
+          ['Cmd-P']: (cm) => {
+            this.$store.dispatch('togglePalette');
+          },
+          ['Esc']: (cm) => {
+            this.$store.dispatch('togglePalette');
+          }
+        });
+
         this.editor.on('change', cm => {
           this.editorModel.text = cm.getValue();
           this.update();
@@ -98,6 +107,7 @@
     padding: 0px;
     margin: 0px;
   }
+
   html, body, #app, #wrapper, #editor, #output, main, .container, .CodeMirror {
     height: 100%;
     max-height: 100%;

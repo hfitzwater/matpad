@@ -2,6 +2,7 @@
 
 import { app, BrowserWindow } from 'electron'
 import './menus/main-menu'
+import '../renderer/store'
 
 /**
  * Set `__static` path to static files in production
