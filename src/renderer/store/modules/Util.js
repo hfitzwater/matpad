@@ -4,10 +4,10 @@ import log from 'electron-log';
 import fs from 'fs';
 import { Bus, APP_EVENTS }  from '../../EventBus';
 
-const COMMANDS = {
+export const COMMANDS = {
   INSERT_SYMBOL: 'Insert Symbol',
-  SAVE: 'Save',
-  OPEN: 'Open',
+  SAVE_FILE: 'Save',
+  OPEN_FILE: 'Open',
   QUIT: 'Quit'
 };
 
@@ -15,8 +15,8 @@ const CommandHandlers = {
   [COMMANDS.INSERT_SYMBOL.toLowerCase()]: (rootState) => {
     log.info('insert symbol');
   },
-  [COMMANDS.SAVE.toLowerCase()]: async (rootState) => {
-    const filePath = await electron.dialog.showSaveDialog(null, {
+  [COMMANDS.SAVE_FILE.toLowerCase()]: async (rootState) => {
+    const filePath = await electron.remote.dialog.showSaveDialog(null, {
       title: 'Save',
       defaultPath: os.homedir()
     });
@@ -25,7 +25,7 @@ const CommandHandlers = {
       fs.writeFileSync(filePath, rootState.Editor.editorContents);
     }
   },
-  [COMMANDS.OPEN.toLowerCase()]: async (rootState) => {
+  [COMMANDS.OPEN_FILE.toLowerCase()]: async (rootState) => {
     const filePaths = await electron.remote.dialog.showOpenDialog(null, {
       title: 'Open',
       defaultPath: os.homedir()
@@ -66,6 +66,11 @@ const actions = {
     commit(UTIL_MUTATIONS.TOGGLE_COMMAND_PALETTE);
   },
   [UTIL_ACTIONS.EXECUTE_COMMAND]({ commit, state, rootState }, cmd) {
+    if( cmd === UTIL_ACTIONS.TOGGLE_PALETTE ) {
+      commit(UTIL_MUTATIONS.TOGGLE_COMMAND_PALETTE);
+      return;
+    }
+
     const command = CommandHandlers[cmd.toLowerCase()];
 
     if(command) {

@@ -86,15 +86,6 @@
           }
         });
 
-        this.editor.setOption("extraKeys", {
-          ['Cmd-P']: (cm) => {
-            this.$store.dispatch(UTIL_ACTIONS.TOGGLE_PALETTE);
-          },
-          ['Esc']: (cm) => {
-            this.$store.dispatch(UTIL_ACTIONS.TOGGLE_PALETTE);
-          }
-        });
-
         this.editor.on('change', cm => {
           const text = cm.getValue();
           this.update(text);

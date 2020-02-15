@@ -1,6 +1,6 @@
 import mexp from 'math-expression-evaluator';
 
-const KEYWORDS = [
+export const KEYWORDS = [
   'Mod',
   'Sigma',
   'Pi',

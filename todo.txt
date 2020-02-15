@@ -1,10 +1,10 @@
 TODO
 ----
 
-+ global keyboard shortcuts
 + command palette
++ insert symbol
++ open help
 + "language" definition
   - https://codemirror.net/doc/manual.html#modeapi
   - https://github.com/foo123/codemirror-grammar
-+ saving/loading files
 + reinstate eslint

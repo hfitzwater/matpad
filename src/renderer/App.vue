@@ -9,6 +9,8 @@
   import CommandPalette from './components/command-palette/CommandPalette';
   import { UTIL_ACTIONS } from './store/modules/Util';
   import Mousetrap from 'mousetrap';
+  import 'mousetrap/plugins/global-bind/mousetrap-global-bind';
+  import PersistentStore, { USER_DATA } from './PersistentStore';
 
   export default {
     name: 'matpad',
@@ -20,9 +22,11 @@
     },
     methods: {
       bindKeys() {
-        Mousetrap.bind(['command+p', 'ctrl+p'], () => {
-          this.$store.dispatch(UTIL_ACTIONS.TOGGLE_PALETTE);
-          return true;
+        const keymap = PersistentStore.read(USER_DATA.KEYMAP);
+        keymap.mappings.forEach(mapping => {
+          Mousetrap.bindGlobal(mapping.keys, () => {
+            this.$store.dispatch(UTIL_ACTIONS.EXECUTE_COMMAND, mapping.command);
+          });
         });
       }
     }
