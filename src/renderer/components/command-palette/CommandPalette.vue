@@ -14,17 +14,19 @@
 </template>
 
 <script>
+  import { UTIL_ACTIONS } from '../../store/modules/Util';
+  
   export default {
     name: 'command-palette',
     methods: {
       keydown(evt) {
         if(evt.key === 'Escape') {
-          this.$store.dispatch('togglePalette');
+          this.$store.dispatch(UTIL_ACTIONS.TOGGLE_PALETTE);
         }
 
         if(evt.key === 'Enter') {
-          this.$store.dispatch('executeCommand', this.input);
-          this.$store.dispatch('togglePalette');
+          this.$store.dispatch(UTIL_ACTIONS.EXECUTE_COMMAND, this.input);
+          this.$store.dispatch(UTIL_ACTIONS.TOGGLE_PALETTE);
         }
       },
       focusCommand() {

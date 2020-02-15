@@ -23,11 +23,13 @@ function createWindow () {
    */
   mainWindow = new BrowserWindow({
     height: 563,
-    useContentSize: true,
     width: 1000,
+    maximizable: true,
+    useContentSize: false,
     webPreferences: {
       nodeIntegration: true
-    }
+    },
+    show: false
   })
 
   mainWindow.loadURL(winURL)
@@ -35,9 +37,14 @@ function createWindow () {
   mainWindow.on('closed', () => {
     mainWindow = null
   })
+
+  mainWindow.maximize()
 }
 
-app.on('ready', createWindow)
+app.on('ready', () => {
+  createWindow()
+  mainWindow.show()
+})
 
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {

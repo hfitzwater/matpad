@@ -7,6 +7,7 @@
 
 <script>
   import CommandPalette from './components/command-palette/CommandPalette';
+  import { UTIL_ACTIONS } from './store/modules/Util';
   import Mousetrap from 'mousetrap';
 
   export default {
@@ -20,7 +21,7 @@
     methods: {
       bindKeys() {
         Mousetrap.bind(['command+p', 'ctrl+p'], () => {
-          this.$store.dispatch('togglePalette');
+          this.$store.dispatch(UTIL_ACTIONS.TOGGLE_PALETTE);
           return true;
         });
       }

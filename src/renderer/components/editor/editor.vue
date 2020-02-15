@@ -33,6 +33,10 @@
   import 'codemirror/addon/dialog/dialog.css';
 
   import Processor from '../../processor/processor';
+  import { Bus, APP_EVENTS } from '../../EventBus';
+  import { UTIL_ACTIONS } from '../../store/modules/Util';
+  import { EDITOR_ACTIONS } from '../../store/modules/Editor';
+  import log from 'electron-log';
 
   export default {
     name: 'editor',
@@ -42,6 +46,8 @@
 
         this.variables = result.variables;
         this.output.getDoc().setValue(result.value);
+
+        this.$store.dispatch(EDITOR_ACTIONS.UPDATE_EDITOR_CONTENTS, this.editor.getValue());
       },
       initOuputEditor() {
         this.output = CodeMirror(document.getElementById('output'), {
@@ -82,10 +88,10 @@
 
         this.editor.setOption("extraKeys", {
           ['Cmd-P']: (cm) => {
-            this.$store.dispatch('togglePalette');
+            this.$store.dispatch(UTIL_ACTIONS.TOGGLE_PALETTE);
           },
           ['Esc']: (cm) => {
-            this.$store.dispatch('togglePalette');
+            this.$store.dispatch(UTIL_ACTIONS.TOGGLE_PALETTE);
           }
         });
 
@@ -93,11 +99,19 @@
           const text = cm.getValue();
           this.update(text);
         });
+      },
+      initAppEvents() {
+        Bus.$on(APP_EVENTS.LOAD_FILE_CONTENTS, (data) => {
+          this.editor.getDoc().setValue(data);
+        });
       }
     },
     mounted() {
       this.initMainEditor();
       this.initOuputEditor();
+    },
+    created() {
+      this.initAppEvents();
     },
     data() {
       return {
