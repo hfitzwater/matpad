@@ -1,5 +1,32 @@
 import mexp from 'math-expression-evaluator';
 
+const KEYWORDS = [
+  'Mod',
+  'Sigma',
+  'Pi',
+  'pi',
+  'n',
+  'e',
+  'C',
+  'P',
+  'log',
+  'ln',
+  'pow',
+  'root',
+  'sin',
+  'cos',
+  'tan',
+  'asin',
+  'acos',
+  'atan',
+  'sinh',
+  'cosh',
+  'tanh',
+  'asinh',
+  'acosh',
+  'atanh'
+];
+
 let variables = {};
 
 export default class Processor {
@@ -8,9 +35,14 @@ export default class Processor {
   static parseEditor(text) {
     variables = {};
 
-    return text.split('\n').map(line => {
+    const value = text.split('\n').map(line => {
       return Processor.parseLine(line);
     }).join('\n');
+
+    return {
+      value,
+      variables
+    };
   }
 
   static parseLine(line) {

@@ -20,6 +20,9 @@
   import 'codemirror/theme/material';
   import 'codemirror/theme/darcula';
   import 'codemirror/theme/3024-night';
+  import 'codemirror/addon/hint/anyword-hint';
+  import 'codemirror/addon/hint/show-hint';
+  import 'codemirror/addon/hint/show-hint.css';
   import 'codemirror/addon/search/search';
   import 'codemirror/addon/search/searchcursor';
   import 'codemirror/addon/search/jump-to-line';
@@ -31,28 +34,14 @@
 
   import Processor from '../../processor/processor';
 
-  let editorModel = {
-    text: '',
-    stats: {
-      words: 0,
-      chars: 0
-    }
-  };
-
-  let outputModel = {
-    text: '',
-    stats: {
-      words: 0,
-      chars: 0
-    }
-  };
-
   export default {
     name: 'editor',
     methods: {
-      update() {
-        const result = Processor.parseEditor(this.editorModel.text);
-        this.output.getDoc().setValue(result);
+      update(text) {
+        const result = Processor.parseEditor(text);
+
+        this.variables = result.variables;
+        this.output.getDoc().setValue(result.value);
       },
       initOuputEditor() {
         this.output = CodeMirror(document.getElementById('output'), {
@@ -69,6 +58,28 @@
           lineNumbers: true
         });
 
+        this.editor.on("keydown", (cm, event) => {
+          // alpha, no ctrl
+          if (!(event.ctrlKey) && (event.keyCode >= 65 && event.keyCode <= 90) || (event.keyCode >= 97 && event.keyCode <= 122)) {
+            CodeMirror.commands.autocomplete(cm, null, {completeSingle: false});
+          }
+
+          if (event.key === '@') {
+            cm.showHint({
+              completeSingle: false,
+              hint: (cm, options) => {
+                const cursor = cm.getCursor();
+                const token = cm.getTokenAt(cursor);
+                return {
+                    list: Object.keys(this.variables),
+                    from: CodeMirror.Pos(cursor.line, token.start),
+                    to: CodeMirror.Pos(cursor.line, token.end)
+                };
+              }
+            });
+          }
+        });
+
         this.editor.setOption("extraKeys", {
           ['Cmd-P']: (cm) => {
             this.$store.dispatch('togglePalette');
@@ -79,8 +90,8 @@
         });
 
         this.editor.on('change', cm => {
-          this.editorModel.text = cm.getValue();
-          this.update();
+          const text = cm.getValue();
+          this.update(text);
         });
       }
     },
@@ -90,8 +101,7 @@
     },
     data() {
       return {
-        editorModel: editorModel,
-        outputModel: outputModel,
+        variables: [],
         editor: null,
         output: null
       }
