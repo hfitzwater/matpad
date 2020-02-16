@@ -36,6 +36,10 @@
           if( this.$store.state.Util.isCommandPaletteOpen ) {
             this.$store.dispatch(UTIL_ACTIONS.TOGGLE_PALETTE);
           }
+
+          if( this.$store.state.Util.isInsertSymbolOpen ) {
+            this.$store.dispatch(UTIL_ACTIONS.TOGGLE_SYMBOLS);
+          }
         });
       }
     }
