@@ -1,7 +1,7 @@
 import electron from 'electron';
 import os from 'os';
 import fs from 'fs';
-import { Bus, APP_EVENTS }  from '../../EventBus';
+import { Bus, APP_EVENTS } from '../../EventBus';
 
 export const COMMANDS = {
   INSERT_SYMBOL: 'Insert Symbol',
@@ -13,7 +13,7 @@ export const COMMANDS = {
 
 const CommandHandlers = {
   [COMMANDS.INSERT_SYMBOL.toLowerCase()]: (rootState, commit, dispatch) => {
-    dispatch(UTIL_ACTIONS.TOGGLE_SYMBOLS, null, { root: true});
+    dispatch(UTIL_ACTIONS.TOGGLE_SYMBOLS, null, { root: true });
   },
   [COMMANDS.SAVE_FILE.toLowerCase()]: async (rootState) => {
     const filePath = await electron.remote.dialog.showSaveDialog(null, {
@@ -21,7 +21,7 @@ const CommandHandlers = {
       defaultPath: os.homedir()
     });
 
-    if(filePath) {
+    if (filePath) {
       fs.writeFileSync(filePath, rootState.Editor.editorContents);
     }
   },
@@ -31,7 +31,7 @@ const CommandHandlers = {
       defaultPath: os.homedir()
     });
 
-    if(filePaths && filePaths.length >= 1) {
+    if (filePaths && filePaths.length >= 1) {
       const data = fs.readFileSync(filePaths[0]);
       Bus.$emit(APP_EVENTS.LOAD_FILE_CONTENTS, data.toString());
     }
@@ -79,14 +79,14 @@ const actions = {
     commit(UTIL_MUTATIONS.TOGGLE_SYMBOL_INSERT);
   },
   [UTIL_ACTIONS.EXECUTE_COMMAND]({ commit, state, rootState, dispatch }, cmd) {
-    if( cmd === UTIL_ACTIONS.TOGGLE_PALETTE ) {
+    if (cmd === UTIL_ACTIONS.TOGGLE_PALETTE) {
       commit(UTIL_MUTATIONS.TOGGLE_COMMAND_PALETTE);
       return;
     }
 
     const command = CommandHandlers[cmd.toLowerCase()];
 
-    if(command) {
+    if (command) {
       command(rootState, commit, dispatch);
     }
   }

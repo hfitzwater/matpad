@@ -48,14 +48,14 @@ export default class PersistentStore {
     const file = filePath(target.file);
     const exists = fs.existsSync(target.file);
 
-    if(!exists) {
+    if (!exists) {
       return target.defaults;
     }
 
     try {
       const data = fs.readFileSync(file);
       return JSON.parse(data);
-    } catch(ex) {
+    } catch (ex) {
       log.error(ex);
     }
   }

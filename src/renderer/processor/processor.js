@@ -126,8 +126,6 @@ export const KEYWORDS = [
 let variables = {};
 
 export default class Processor {
-  constructor() {}
-
   static parseEditor(text) {
     variables = {};
 
@@ -146,15 +144,15 @@ export default class Processor {
   static parseLine(line) {
     const parts = line.split('=').map(p => p.trim());
 
-    if(parts.length === 2) {
+    if (parts.length === 2) {
       const result = `${Processor.calcExp(parts[1])}`;
       variables[parts[0]] = result;
 
       return result;
-    } else if(parts.length === 1) {
+    } else if (parts.length === 1) {
       try {
         return `${Processor.calcExp(line)}`;
-      } catch(ex) {
+      } catch (ex) {
         return `Unknown`;
       }
     } else {
@@ -169,8 +167,8 @@ export default class Processor {
 
     try {
       return mexp.eval(exp);
-    } catch(ex) {
-      if( exp && exp.trim().length && !exp.includes('//') ) {
+    } catch (ex) {
+      if (exp && exp.trim().length && !exp.includes('//')) {
         return '⚠️';
       } else {
         return '';
