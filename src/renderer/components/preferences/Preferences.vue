@@ -6,15 +6,6 @@
       <template slot="content">
         <div>
           <cv-tabs>
-            <cv-tab id="keys-tab" label="Key Bindings">
-              <cv-data-table :columns="keymapColumns" ref="table">
-                <template slot="data">
-                  <cv-data-table-row v-for="(row, rowIndex) in keymapData" :key="`${rowIndex}`" :value="`${rowIndex}`">
-                    <cv-data-table-cell v-for="(cell, cellIndex) in row" :key="`${cellIndex}`" :value="`${cellIndex}`" v-html="cell"></cv-data-table-cell>
-                  </cv-data-table-row>
-                </template>
-              </cv-data-table>
-            </cv-tab>
             <cv-tab id="symbols-tab" label="Symbols">
               <cv-data-table :columns="symbolsColumns" ref="table">
                 <template slot="data">
@@ -42,6 +33,15 @@
                         </cv-button>
                       </div>
                     </cv-data-table-cell>
+                  </cv-data-table-row>
+                </template>
+              </cv-data-table>
+            </cv-tab>
+            <cv-tab id="keys-tab" label="Key Bindings">
+              <cv-data-table :columns="keymapColumns" ref="table">
+                <template slot="data">
+                  <cv-data-table-row v-for="(row, rowIndex) in keymapData" :key="`${rowIndex}`" :value="`${rowIndex}`">
+                    <cv-data-table-cell v-for="(cell, cellIndex) in row" :key="`${cellIndex}`" :value="`${cellIndex}`" v-html="cell"></cv-data-table-cell>
                   </cv-data-table-row>
                 </template>
               </cv-data-table>

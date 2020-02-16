@@ -24,7 +24,7 @@ months_to_target = savings_target / monthly_save
 `
   },
   COMBINATIONS: {
-    description: 'Combinations',
+    description: 'Basketball Team (Combinations)',
     key: 'combinations',
     data: `
 players = 25
@@ -34,7 +34,7 @@ possible_teams = players C team_size
 `
   },
   PERMUTATIONS: {
-    description: 'Permutations',
+    description: 'Flower Bouquet (Permutations)',
     key: 'permutations',
     data: `
 flowers = 20

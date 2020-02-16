@@ -61,12 +61,13 @@
           mode: 'javascript',
           lineWrapping: false,
           theme: '3024-night',
+          autofocus: true,
           lineNumbers: true
         });
 
         this.editor.on("keydown", (cm, event) => {
-          // alpha, no ctrl
-          if (!(event.ctrlKey) && (event.keyCode >= 65 && event.keyCode <= 90) || (event.keyCode >= 97 && event.keyCode <= 122)) {
+          // alpha, no ctrl, no meta
+          if (!(event.ctrlKey) && !(event.metaKey) && (event.keyCode >= 65 && event.keyCode <= 90) || (event.keyCode >= 97 && event.keyCode <= 122)) {
             CodeMirror.commands.autocomplete(cm, null, {completeSingle: false});
           }
 
@@ -94,6 +95,20 @@
       initAppEvents() {
         Bus.$on(APP_EVENTS.LOAD_FILE_CONTENTS, (data) => {
           this.editor.getDoc().setValue(data);
+        });
+
+        Bus.$on(APP_EVENTS.INSERT_SYMBOL, (symbol) => {
+          const selection = this.editor.getSelection();
+
+          if(selection.length) {
+            this.editor.replaceSelection(symbol);
+          } else {
+            const doc = this.editor.getDoc();
+            const cursor = doc.getCursor();
+            doc.replaceRange(symbol, cursor);
+          }
+
+          this.editor.focus();
         });
       },
       seed() {
@@ -143,5 +158,9 @@
   .container .right {
     flex: 0 1 auto;
     width: 40%;
+  }
+
+  .CodeMirror {
+    font-size: 1.25rem;
   }
 </style>

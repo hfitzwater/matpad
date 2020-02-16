@@ -22,7 +22,7 @@ export const USER_DATA = {
         {
           keys: ['command+s', 'ctrl+s'],
           command: COMMANDS.SAVE_FILE,
-          description: 'Save contents of current matpad'
+          description: 'Save contents of current Matpad'
         },
         {
           keys: ['command+q', 'ctrl+q'],

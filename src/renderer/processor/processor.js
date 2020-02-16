@@ -131,8 +131,9 @@ export default class Processor {
   static parseEditor(text) {
     variables = {};
 
-    text = text.split(' ').join('');
     const value = text.split('\n').map(line => {
+      line = line.trim();
+
       return Processor.parseLine(line);
     }).join('\n');
 
@@ -169,7 +170,11 @@ export default class Processor {
     try {
       return mexp.eval(exp);
     } catch(ex) {
-      return '';
+      if( exp && exp.trim().length && !exp.includes('//') ) {
+        return '⚠️';
+      } else {
+        return '';
+      }
     }
   }
 }

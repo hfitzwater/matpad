@@ -13,8 +13,8 @@ export const COMMANDS = {
 };
 
 const CommandHandlers = {
-  [COMMANDS.INSERT_SYMBOL.toLowerCase()]: (rootState) => {
-    log.info('insert symbol');
+  [COMMANDS.INSERT_SYMBOL.toLowerCase()]: (rootState, commit, dispatch) => {
+    dispatch(UTIL_ACTIONS.TOGGLE_SYMBOLS, null, { root: true});
   },
   [COMMANDS.SAVE_FILE.toLowerCase()]: async (rootState) => {
     const filePath = await electron.remote.dialog.showSaveDialog(null, {
@@ -48,21 +48,27 @@ const CommandHandlers = {
 
 const state = {
   isCommandPaletteOpen: false,
+  isInsertSymbolOpen: false,
   commands: Object.values(COMMANDS)
 };
 
 export const UTIL_MUTATIONS = {
-  TOGGLE_COMMAND_PALETTE: 'TOGGLE_COMMAND_PALETTE'
+  TOGGLE_COMMAND_PALETTE: 'TOGGLE_COMMAND_PALETTE',
+  TOGGLE_SYMBOL_INSERT: 'TOGGLE_SYMBOL_INSERT'
 };
 
 const mutations = {
   [UTIL_MUTATIONS.TOGGLE_COMMAND_PALETTE] (state) {
     state.isCommandPaletteOpen = !state.isCommandPaletteOpen;
+  },
+  [UTIL_MUTATIONS.TOGGLE_SYMBOL_INSERT] (state) {
+    state.isInsertSymbolOpen = !state.isInsertSymbolOpen;
   }
 };
 
 export const UTIL_ACTIONS = {
   TOGGLE_PALETTE: 'togglePalette',
+  TOGGLE_SYMBOLS: 'toggleSymbols',
   EXECUTE_COMMAND: 'executeCommand'
 };
 
@@ -70,7 +76,10 @@ const actions = {
   [UTIL_ACTIONS.TOGGLE_PALETTE]({ commit }) {
     commit(UTIL_MUTATIONS.TOGGLE_COMMAND_PALETTE);
   },
-  [UTIL_ACTIONS.EXECUTE_COMMAND]({ commit, state, rootState }, cmd) {
+  [UTIL_ACTIONS.TOGGLE_SYMBOLS]({ commit }) {
+    commit(UTIL_MUTATIONS.TOGGLE_SYMBOL_INSERT);
+  },
+  [UTIL_ACTIONS.EXECUTE_COMMAND]({ commit, state, rootState, dispatch }, cmd) {
     if( cmd === UTIL_ACTIONS.TOGGLE_PALETTE ) {
       commit(UTIL_MUTATIONS.TOGGLE_COMMAND_PALETTE);
       return;
@@ -79,7 +88,7 @@ const actions = {
     const command = CommandHandlers[cmd.toLowerCase()];
 
     if(command) {
-      command(rootState);
+      command(rootState, commit, dispatch);
     }
   }
 };
