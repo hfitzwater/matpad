@@ -1,6 +1,5 @@
 import electron from 'electron';
 import os from 'os';
-import log from 'electron-log';
 import fs from 'fs';
 import { Bus, APP_EVENTS }  from '../../EventBus';
 
@@ -38,7 +37,7 @@ const CommandHandlers = {
     }
   },
   [COMMANDS.QUIT.toLowerCase()]: (rootState) => {
-    electron.app.exit();
+    electron.remote.app.exit();
   },
   [COMMANDS.PREFERENCES.toLowerCase()]: (rootState) => {
     const baseUri = window.location.href.split('#')[0];
