@@ -6,6 +6,10 @@ import router from './router'
 import store from './store'
 import { webFrame } from 'electron'
 
+import 'carbon-components/css/carbon-components.css';
+import CarbonComponentsVue from '@carbon/vue';
+Vue.use(CarbonComponentsVue);
+
 webFrame.setZoomFactor(1.5)
 
 if (!process.env.IS_WEB) Vue.use(require('vue-electron'))

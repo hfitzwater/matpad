@@ -8,7 +8,8 @@ export const COMMANDS = {
   INSERT_SYMBOL: 'Insert Symbol',
   SAVE_FILE: 'Save',
   OPEN_FILE: 'Open',
-  QUIT: 'Quit'
+  QUIT: 'Quit',
+  PREFERENCES: 'Edit Preferences'
 };
 
 const CommandHandlers = {
@@ -38,6 +39,10 @@ const CommandHandlers = {
   },
   [COMMANDS.QUIT.toLowerCase()]: (rootState) => {
     electron.app.exit();
+  },
+  [COMMANDS.PREFERENCES.toLowerCase()]: (rootState) => {
+    const baseUri = window.location.href.split('#')[0];
+    window.location.href = `${baseUri}#/preferences`
   }
 };
 

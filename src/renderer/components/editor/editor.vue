@@ -59,7 +59,7 @@
       initMainEditor() {
         this.editor = CodeMirror(document.getElementById('editor'), {
           mode: 'javascript',
-          lineWrapping: true,
+          lineWrapping: false,
           theme: '3024-night',
           lineNumbers: true
         });
@@ -95,11 +95,16 @@
         Bus.$on(APP_EVENTS.LOAD_FILE_CONTENTS, (data) => {
           this.editor.getDoc().setValue(data);
         });
+      },
+      seed() {
+        // seed from store
+        this.editor.getDoc().setValue(this.$store.state.Editor.editorContents || '');
       }
     },
     mounted() {
       this.initMainEditor();
       this.initOuputEditor();
+      this.seed();
     },
     created() {
       this.initAppEvents();
@@ -110,9 +115,6 @@
         editor: null,
         output: null
       }
-    },
-    beforeDestroy() {
-      this.editor.destroy()
     }
   }
 </script>

@@ -11,19 +11,28 @@ export const USER_DATA = {
       mappings: [
         {
           keys: ['command+p', 'ctrl+p'],
-          command: UTIL_ACTIONS.TOGGLE_PALETTE
+          command: UTIL_ACTIONS.TOGGLE_PALETTE,
+          description: 'Open application command palette'
         },
         {
           keys: ['command+o', 'ctrl+o'],
-          command: COMMANDS.OPEN_FILE
+          command: COMMANDS.OPEN_FILE,
+          description: 'Open a file in Matpad'
         },
         {
           keys: ['command+s', 'ctrl+s'],
-          command: COMMANDS.SAVE_FILE
+          command: COMMANDS.SAVE_FILE,
+          description: 'Save contents of current matpad'
         },
         {
           keys: ['command+q', 'ctrl+q'],
-          command: COMMANDS.QUIT
+          command: COMMANDS.QUIT,
+          description: 'Close the application'
+        },
+        {
+          keys: ['command+,', 'ctrl+,'],
+          command: COMMANDS.PREFERENCES,
+          description: 'Open application preferences'
         }
       ]
     }

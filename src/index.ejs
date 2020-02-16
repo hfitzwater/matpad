@@ -3,6 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+
     <title>matpad</title>
     <% if (htmlWebpackPlugin.options.nodeModules) { %>
       <!-- Add `node_modules/` to global paths so `require` works properly in development -->
@@ -11,7 +12,7 @@
       </script>
     <% } %>
   </head>
-  <body>
+  <body style="background-color: #000">
     <div id="app"></div>
     <!-- Set `__static` path to static files in production -->
     <% if (!process.browser) { %>

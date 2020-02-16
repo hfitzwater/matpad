@@ -86,6 +86,25 @@
     lodash "^4.2.0"
     to-fast-properties "^2.0.0"
 
+"@carbon/icon-helpers@^10.5.0":
+  version "10.5.2"
+  resolved "https://registry.yarnpkg.com/@carbon/icon-helpers/-/icon-helpers-10.5.2.tgz#7975fc091206f4a423e812dada89519df52c2041"
+
+"@carbon/icons-vue@10.8.0":
+  version "10.8.0"
+  resolved "https://registry.yarnpkg.com/@carbon/icons-vue/-/icons-vue-10.8.0.tgz#68f242e36b814efd03b777b79d1e3357cd5bf6dc"
+  dependencies:
+    "@carbon/icon-helpers" "^10.5.0"
+
+"@carbon/vue@^2.23.0":
+  version "2.23.0"
+  resolved "https://registry.yarnpkg.com/@carbon/vue/-/vue-2.23.0.tgz#99991c8473fbbd41157b48331ca72becaf9245da"
+  dependencies:
+    "@carbon/icons-vue" "10.8.0"
+    carbon-components "10.9.0"
+    flatpickr "4.6.3"
+    vue "^2.6.10"
+
 "@develar/schema-utils@~2.1.0":
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/@develar/schema-utils/-/schema-utils-2.1.0.tgz#eceb1695bfbed6f6bb84666d5d3abe5e1fd54e17"
@@ -2034,6 +2053,19 @@ caniuse-db@^1.0.30000529, caniuse-db@^1.0.30000634, caniuse-db@^1.0.30000639:
 caniuse-lite@^1.0.30000844:
   version "1.0.30001025"
   resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001025.tgz#30336a8aca7f98618eb3cf38e35184e13d4e5fe6"
+
+carbon-components@10.9.0:
+  version "10.9.0"
+  resolved "https://registry.yarnpkg.com/carbon-components/-/carbon-components-10.9.0.tgz#b96f097582301b009232ebc54927327ee3608a84"
+  dependencies:
+    carbon-icons "^7.0.7"
+    flatpickr "4.6.1"
+    lodash.debounce "^4.0.8"
+    warning "^3.0.0"
+
+carbon-icons@^7.0.7:
+  version "7.0.7"
+  resolved "https://registry.yarnpkg.com/carbon-icons/-/carbon-icons-7.0.7.tgz#ebafe3e9fa25df973796a8eca06d8a7c501cc610"
 
 caseless@~0.11.0:
   version "0.11.0"
@@ -4032,6 +4064,14 @@ flat-cache@^1.2.1:
     rimraf "~2.6.2"
     write "^0.2.1"
 
+flatpickr@4.6.1:
+  version "4.6.1"
+  resolved "https://registry.yarnpkg.com/flatpickr/-/flatpickr-4.6.1.tgz#9eb498ab805dd27f5ae02e1ac6ac6c099ce45e94"
+
+flatpickr@4.6.3:
+  version "4.6.3"
+  resolved "https://registry.yarnpkg.com/flatpickr/-/flatpickr-4.6.3.tgz#15a8b76b6e34e3a072861250503a5995b9d3bc60"
+
 flatten@^1.0.2:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/flatten/-/flatten-1.0.3.tgz#c1283ac9f27b368abc1e36d1ff7b04501a30356b"
@@ -5785,6 +5825,10 @@ lodash.clonedeep@^3.0.2:
   dependencies:
     lodash._baseclone "^3.0.0"
     lodash._bindcallback "^3.0.0"
+
+lodash.debounce@^4.0.8:
+  version "4.0.8"
+  resolved "https://registry.yarnpkg.com/lodash.debounce/-/lodash.debounce-4.0.8.tgz#82d79bff30a67c4005ffd5e2515300ad9ca4d7af"
 
 lodash.isarguments@^3.0.0:
   version "3.1.0"
@@ -9341,7 +9385,7 @@ vue-template-es2015-compiler@^1.9.0:
   version "1.9.1"
   resolved "https://registry.yarnpkg.com/vue-template-es2015-compiler/-/vue-template-es2015-compiler-1.9.1.tgz#1ee3bc9a16ecbf5118be334bb15f9c46f82f5825"
 
-vue@^2.5.16:
+vue@^2.5.16, vue@^2.6.10:
   version "2.6.11"
   resolved "https://registry.yarnpkg.com/vue/-/vue-2.6.11.tgz#76594d877d4b12234406e84e35275c6d514125c5"
 
@@ -9355,6 +9399,12 @@ vuex-electron@^1.0.0:
 vuex@^3.0.1:
   version "3.1.2"
   resolved "https://registry.yarnpkg.com/vuex/-/vuex-3.1.2.tgz#a2863f4005aa73f2587e55c3fadf3f01f69c7d4d"
+
+warning@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/warning/-/warning-3.0.0.tgz#32e5377cb572de4ab04753bdf8821c01ed605b7c"
+  dependencies:
+    loose-envify "^1.0.0"
 
 watchpack@^1.6.0:
   version "1.6.0"

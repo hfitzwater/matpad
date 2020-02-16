@@ -3,8 +3,8 @@ TODO
 
 + command palette
 + insert symbol
-+ open help
 + "language" definition
   - https://codemirror.net/doc/manual.html#modeapi
   - https://github.com/foo123/codemirror-grammar
 + reinstate eslint
++ edit keymap
