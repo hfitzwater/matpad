@@ -1,4 +1,4 @@
-# matpad [![Build Status](https://github.com/hfitzwater/matpad/workflows/Build/badge.svg?branch=master)]
+# matpad [![Build Status](https://github.com/hfitzwater/matpad/workflows/Build/badge.svg?branch=master)]()
 
 ![](media/256x256.png)
 
