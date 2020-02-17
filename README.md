@@ -4,7 +4,15 @@
 
 > Interactive notepad for simple math
 
-#### Develop
+Install
+------------
+
+###### MacOS
+
+Visit the [releases](https://github.com/hfitzwater/matpad/releases) page to download the latest version.
+
+Develop
+------------
 
 ``` bash
 # install dependencies
