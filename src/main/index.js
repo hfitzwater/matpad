@@ -27,6 +27,7 @@ function createWindow () {
     maximizable: true,
     useContentSize: false,
     webPreferences: {
+      webSecurity: false,
       nodeIntegration: true
     },
     show: false

@@ -2,7 +2,7 @@
   "name": "matpad",
   "version": "0.0.1",
   "author": "Hunter Fitzwater <hcfitzwater@gmail.com>",
-  "description": "Interactive math notepad",
+  "description": "Interactive notepad for simple math",
   "license": null,
   "main": "./dist/electron/main.js",
   "scripts": {

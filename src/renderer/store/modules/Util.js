@@ -1,6 +1,7 @@
 import electron from 'electron';
 import os from 'os';
 import fs from 'fs';
+import log from 'electron-log';
 import { Bus, APP_EVENTS } from '../../EventBus';
 
 export const COMMANDS = {
@@ -16,23 +17,41 @@ const CommandHandlers = {
     dispatch(UTIL_ACTIONS.TOGGLE_SYMBOLS, null, { root: true });
   },
   [COMMANDS.SAVE_FILE.toLowerCase()]: async (rootState) => {
-    const filePath = await electron.remote.dialog.showSaveDialog(null, {
+    let filePath = null;
+    const result = await electron.remote.dialog.showSaveDialog(null, {
       title: 'Save',
       defaultPath: os.homedir()
     });
+
+    if( typeof result === 'string' ) {
+      filePath = result;
+    } else {
+      if( result.filePaths && result.filePaths.length ) {
+        filePath = result.filePaths[0];
+      }
+    }
 
     if (filePath) {
       fs.writeFileSync(filePath, rootState.Editor.editorContents);
     }
   },
   [COMMANDS.OPEN_FILE.toLowerCase()]: async (rootState) => {
-    const filePaths = await electron.remote.dialog.showOpenDialog(null, {
+    let filePath = null;
+    const result = await electron.remote.dialog.showOpenDialog(null, {
       title: 'Open',
       defaultPath: os.homedir()
     });
 
-    if (filePaths && filePaths.length >= 1) {
-      const data = fs.readFileSync(filePaths[0]);
+    if( typeof result === 'string' ) {
+      filePath = result;
+    } else {
+      if( result.filePaths && result.filePaths.length ) {
+        filePath = result.filePaths[0];
+      }
+    }
+
+    if (filePath) {
+      const data = fs.readFileSync(filePath);
       Bus.$emit(APP_EVENTS.LOAD_FILE_CONTENTS, data.toString());
     }
   },
