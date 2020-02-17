@@ -1,14 +1,8 @@
 TODO
 ----
 
-+ "language" definition
++ add matpad mode
   - https://codemirror.net/doc/manual.html#modeapi
   - https://github.com/foo123/codemirror-grammar
 + edit keymap
-
-+ fix load/save in prod
-
-+ make icon
-+ update readme
-+ add liscense
 + add tests
