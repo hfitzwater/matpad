@@ -143,7 +143,6 @@
   html, body, #app, #wrapper, #editor, #output, main, .container, .CodeMirror {
     height: 100%;
     max-height: 100%;
-    overflow-y: scroll;
   }
 
   .container {
