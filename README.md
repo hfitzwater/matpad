@@ -4,6 +4,8 @@
 
 > Interactive notepad for simple math
 
+![](media/screenshot.png)
+
 Install
 ------------
 
