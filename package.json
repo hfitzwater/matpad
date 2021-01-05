@@ -55,7 +55,7 @@
   },
   "dependencies": {
     "@carbon/vue": "^2.23.0",
-    "axios": "^0.18.0",
+    "axios": "^0.21.1",
     "codemirror": "^5.51.0",
     "electron-log": "^4.0.6",
     "math-expression-evaluator": "^1.2.22",
